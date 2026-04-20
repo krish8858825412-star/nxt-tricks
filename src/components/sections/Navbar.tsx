@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useChannels } from "@/hooks/useChannels";
-import { useLongPress } from "@/hooks/useLongPress";
 import AdminPanel from "@/components/admin/AdminPanel";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { toast } from "@/components/ui/use-toast";
 
 const links = [
   { label: "Pillars", href: "#pillars" },
@@ -13,16 +13,43 @@ const links = [
   { label: "Apply", href: "#apply" },
 ];
 
+const ADMIN_TAP_TARGET = 5;
+const ADMIN_TAP_WINDOW_MS = 1800;
+
 const Navbar = () => {
   const { main, extras } = useChannels();
   const [adminOpen, setAdminOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const tapCount = useRef(0);
+  const tapTimer = useRef<number | null>(null);
 
-  const { handlers } = useLongPress({
-    ms: 10000,
-    onTrigger: () => setAdminOpen(true),
-    onProgress: setProgress,
-  });
+  useEffect(() => {
+    return () => {
+      if (tapTimer.current) window.clearTimeout(tapTimer.current);
+    };
+  }, []);
+
+  const handleAdminShortcut = () => {
+    tapCount.current += 1;
+
+    if (tapTimer.current) window.clearTimeout(tapTimer.current);
+
+    if (tapCount.current >= ADMIN_TAP_TARGET) {
+      tapCount.current = 0;
+      tapTimer.current = null;
+      setAdminOpen(true);
+      toast({ title: "Admin panel opened", description: "Logo shortcut detected." });
+      return;
+    }
+
+    if (tapCount.current === ADMIN_TAP_TARGET - 1) {
+      toast({ title: "One more tap", description: "Tap the NXT logo once more to open admin." });
+    }
+
+    tapTimer.current = window.setTimeout(() => {
+      tapCount.current = 0;
+      tapTimer.current = null;
+    }, ADMIN_TAP_WINDOW_MS);
+  };
 
   return (
     <>
@@ -34,7 +61,12 @@ const Navbar = () => {
       >
         <div className="container">
           <div className="mt-4 glass rounded-full px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-            <a href="#top" className="flex items-center gap-2 group min-w-0">
+              <a
+                href="#top"
+                onClick={handleAdminShortcut}
+                aria-label="NXT Tricks Official logo. Tap five times quickly to open admin panel."
+                className="flex items-center gap-2 group min-w-0"
+              >
               <span className="size-8 shrink-0 rounded-lg bg-gradient-aurora animate-gradient-shift bg-[length:200%_200%] grid place-items-center font-display font-bold text-primary-foreground text-sm">
                 N
               </span>
@@ -69,24 +101,16 @@ const Navbar = () => {
               ))}
 
               <div className="relative">
-                <Button asChild size="sm" variant="hero" className="rounded-full select-none">
+                <Button asChild size="sm" variant="hero" className="rounded-full select-none [touch-action:manipulation]">
                   <a
                     href={main.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    {...handlers}
-                    aria-label={`Join ${main.name}. Long-press 10 seconds for admin.`}
+                    aria-label={`Join ${main.name}`}
                   >
                     Join Channel
                   </a>
                 </Button>
-                {progress > 0 && progress < 1 && (
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-primary/80"
-                    style={{ width: `${Math.round(progress * 100)}%`, maxWidth: "90%" }}
-                  />
-                )}
               </div>
             </div>
           </div>

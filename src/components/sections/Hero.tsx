@@ -19,6 +19,23 @@ const letterVariants = {
 const Hero = () => {
   const reduce = useReducedMotion();
   const { main, extras } = useChannels();
+  const posterIntro = reduce
+    ? {
+        hidden: { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, filter: "blur(0px)" },
+        show: { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, filter: "blur(0px)" },
+      }
+    : {
+        hidden: { opacity: 0, x: -80, y: 90, scale: 0.8, rotate: -8, filter: "blur(18px)" },
+        show: {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+          filter: "blur(0px)",
+          transition: { duration: 1.15, ease: [0.16, 1, 0.3, 1] as const },
+        },
+      };
 
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-20">
@@ -57,6 +74,48 @@ const Hero = () => {
           <div className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs sm:text-sm text-muted-foreground">
             <Sparkles className="size-3.5 text-primary" />
             <span>India's #1 legitimate work-from-home community</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          variants={posterIntro}
+          initial="hidden"
+          animate="show"
+          className="mx-auto mt-8 w-full max-w-[22rem] sm:max-w-md lg:max-w-xl"
+        >
+          <div className="glass relative overflow-hidden rounded-[2rem] border border-border/70 p-2 shadow-elegant">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
+              <img
+                src={heroBg}
+                alt="NXT Tricks Official poster"
+                width={1200}
+                height={1500}
+                className="h-full w-full object-cover object-center scale-[1.08]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+              <div className="absolute left-4 top-4 inline-flex items-center rounded-full border border-border/60 bg-background/45 px-3 py-1 text-[10px] uppercase tracking-[0.32em] text-foreground/90 backdrop-blur-md">
+                NXT Tricks
+              </div>
+              <div className="absolute right-4 top-4 inline-flex items-center rounded-full border border-border/60 bg-background/45 px-3 py-1 text-[10px] uppercase tracking-[0.32em] text-primary backdrop-blur-md">
+                Official
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                <motion.div
+                  initial={reduce ? false : { opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.65, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  className="rounded-[1.4rem] border border-border/60 bg-background/45 p-4 text-left backdrop-blur-xl"
+                >
+                  <p className="text-[10px] uppercase tracking-[0.35em] text-primary">Work • Learn • Earn</p>
+                  <p className="mt-2 font-display text-xl font-bold leading-tight text-foreground sm:text-2xl">
+                    Cinematic poster intro with a cleaner first impression.
+                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Open the site and the poster now slides in, settles, and reveals the page more smoothly.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -101,7 +160,7 @@ const Hero = () => {
           transition={{ delay: 1.4, duration: 0.7 }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Button asChild size="xl" variant="hero" className="group">
+          <Button asChild size="xl" variant="hero" className="group [touch-action:manipulation]">
             <a href={main.url} target="_blank" rel="noopener noreferrer">
               <Send className="size-5" />
               Join Telegram Channel

@@ -36,11 +36,20 @@ const pillars = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: (i: number) => ({
+    opacity: 0,
+    y: 36,
+    x: i % 2 === 0 ? -36 : 36,
+    scale: 0.92,
+    filter: "blur(12px)",
+  }),
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+    x: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { delay: i * 0.08, duration: 0.72, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
@@ -77,18 +86,22 @@ const Pillars = () => (
             whileInView="show"
             exit="hidden"
             viewport={{ once: false, margin: "-80px" }}
-            whileHover={{ y: -6 }}
+            whileHover={{ y: -8, scale: 1.01 }}
             className="group relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-card shadow-card transition-all hover:shadow-elegant hover:border-primary/40"
           >
             {/* Poster header */}
             <div className="relative h-48 overflow-hidden">
-              <img
+              <motion.img
                 src={p.poster}
                 alt={`${p.title} poster`}
                 loading="lazy"
                 width={1376}
                 height={768}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                initial={{ scale: 1.16, x: i % 2 === 0 ? -18 : 18 }}
+                whileInView={{ scale: 1, x: 0 }}
+                viewport={{ once: false, margin: "-80px" }}
+                transition={{ duration: 0.85, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
               <div className={`absolute -top-20 -right-20 size-56 rounded-full bg-gradient-to-br ${p.accent} opacity-10 blur-3xl transition-opacity group-hover:opacity-30`} />
