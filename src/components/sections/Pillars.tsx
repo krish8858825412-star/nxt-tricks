@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Briefcase, Megaphone, LineChart } from "lucide-react";
 import bgPillars from "@/assets/bg-pillars.jpg";
+import posterFreelancing from "@/assets/poster-freelancing.jpg";
+import posterAgency from "@/assets/poster-agency.jpg";
+import posterFinance from "@/assets/poster-finance.jpg";
 
 const pillars = [
   {
@@ -10,6 +13,7 @@ const pillars = [
     desc: "Learn writing, design, video editing, and data entry. Get real client leads from our partner network.",
     bullets: ["Beginner-friendly modules", "Live mentorship calls", "Portfolio reviews"],
     accent: "from-primary to-primary-glow",
+    poster: posterFreelancing,
   },
   {
     icon: Megaphone,
@@ -18,6 +22,7 @@ const pillars = [
     desc: "Offer social media, web design, and content services to local businesses. We hand you the playbook.",
     bullets: ["Done-for-you proposals", "Pricing templates", "Client outreach scripts"],
     accent: "from-primary via-accent to-primary-glow",
+    poster: posterAgency,
   },
   {
     icon: LineChart,
@@ -26,6 +31,7 @@ const pillars = [
     desc: "Learn personal finance, budgeting, and basic stock-market literacy. Education only — never tips.",
     bullets: ["SEBI-aware content", "No 'sure shot' calls", "Structured roadmap"],
     accent: "from-accent via-primary to-accent-glow",
+    poster: posterFinance,
   },
 ];
 
