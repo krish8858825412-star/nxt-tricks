@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Send, GraduationCap, Rocket, Wallet } from "lucide-react";
-import bgHow from "@/assets/bg-how.jpg";
+import bgHow from "@/assets/poster-how.jpg";
 
 const steps = [
   { icon: Send, title: "Join the Channel", text: "Tap the Telegram button and join our free community." },
