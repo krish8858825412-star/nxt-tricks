@@ -4,6 +4,7 @@ import Pillars from "@/components/sections/Pillars";
 import HowItWorks from "@/components/sections/HowItWorks";
 import StatsTicker from "@/components/sections/StatsTicker";
 import Testimonials from "@/components/sections/Testimonials";
+import FAQ from "@/components/sections/FAQ";
 import LeadForm from "@/components/sections/LeadForm";
 import Footer from "@/components/sections/Footer";
 
@@ -17,6 +18,7 @@ const Index = () => {
         <HowItWorks />
         <StatsTicker />
         <Testimonials />
+        <FAQ />
         <LeadForm />
       </main>
       <Footer />
