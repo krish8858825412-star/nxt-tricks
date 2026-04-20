@@ -18,8 +18,8 @@ const HowItWorks = () => {
   return (
     <section id="how" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <img src={bgHow} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
+        <img src={bgHow} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </div>
       <div className="container">
         <motion.div

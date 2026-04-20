@@ -23,8 +23,8 @@ const items = [
 const Testimonials = () => (
   <section className="relative py-24 sm:py-32">
     <div className="absolute inset-0 -z-10 overflow-hidden">
-      <img src={bgTestimonials} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-25" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+      <img src={bgTestimonials} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
     </div>
     <div className="container">
       <motion.div
