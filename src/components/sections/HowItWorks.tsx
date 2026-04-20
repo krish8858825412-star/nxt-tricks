@@ -1,10 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Send, GraduationCap, Rocket, Wallet } from "lucide-react";
+import bgHow from "@/assets/bg-how.jpg";
 
 const steps = [
   { icon: Send, title: "Join the Channel", text: "Tap the Telegram button and join our free community." },
-  { icon: GraduationCap, title: "Pick Your Pillar", text: "Choose Freelancing, Affiliate, Agency or Finance Education." },
+  { icon: GraduationCap, title: "Pick Your Pillar", text: "Choose Freelancing, Agency Services, or Finance Education." },
   { icon: Rocket, title: "Follow the Roadmap", text: "Daily 2–4 hour tasks, beginner-friendly, mobile only." },
   { icon: Wallet, title: "Earn Real Income", text: "Get paid by clients, brands, or platforms — directly to you." },
 ];
@@ -16,12 +17,16 @@ const HowItWorks = () => {
 
   return (
     <section id="how" className="relative py-24 sm:py-32">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <img src={bgHow} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
+      </div>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-2xl"
         >
           <span className="text-xs uppercase tracking-[0.2em] text-accent font-medium">How It Works</span>
@@ -42,10 +47,10 @@ const HowItWorks = () => {
               return (
                 <motion.div
                   key={s.title}
-                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, margin: "-80px" }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                   className={`relative flex sm:items-center gap-6 ${isLeft ? "sm:flex-row" : "sm:flex-row-reverse"}`}
                 >
                   {/* Dot */}

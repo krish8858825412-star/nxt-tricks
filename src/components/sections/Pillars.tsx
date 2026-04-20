@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Briefcase, Megaphone, LineChart } from "lucide-react";
+import bgPillars from "@/assets/bg-pillars.jpg";
 
 const pillars = [
   {
@@ -29,17 +30,20 @@ const pillars = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.95 },
+  hidden: { opacity: 0, y: 24 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
 const Pillars = () => (
   <section id="pillars" className="relative py-24 sm:py-32">
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      <img src={bgPillars} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+    </div>
     <div className="container">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
