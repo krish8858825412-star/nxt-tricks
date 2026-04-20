@@ -9,10 +9,10 @@ import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle2 } from "lucide-react";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import bgForm from "@/assets/bg-form.jpg";
 
 const interests = [
   "Freelancing",
-  "Affiliate Marketing",
   "Agency Services",
   "Finance Education",
   "Not sure yet",
@@ -57,13 +57,17 @@ const LeadForm = () => {
 
   return (
     <section id="apply" className="relative py-24 sm:py-32">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <img src={bgForm} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+      </div>
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Apply Now</span>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl font-bold leading-tight">
@@ -89,10 +93,10 @@ const LeadForm = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="glass rounded-3xl p-6 sm:p-8 shadow-elegant"
           >
             {done ? (

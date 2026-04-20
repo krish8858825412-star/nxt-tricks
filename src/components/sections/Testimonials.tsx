@@ -1,12 +1,8 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
+import bgTestimonials from "@/assets/bg-testimonials.jpg";
 
 const items = [
-  {
-    name: "Aarav S.",
-    role: "Affiliate Pillar · Jaipur",
-    text: "I started promoting Meesho links part-time. After two months I'm consistently making side income. The campaign drops save me hours.",
-  },
   {
     name: "Priya K.",
     role: "Freelancing Pillar · Pune",
@@ -17,16 +13,25 @@ const items = [
     role: "Agency Pillar · Lucknow",
     text: "I now run social media for two local restaurants. The outreach scripts are gold — that's how I closed both clients.",
   },
+  {
+    name: "Sneha R.",
+    role: "Finance Education · Indore",
+    text: "I learned the basics of budgeting and SIPs in a structured way. No tips, just real knowledge that I now apply daily.",
+  },
 ];
 
 const Testimonials = () => (
   <section className="relative py-24 sm:py-32">
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      <img src={bgTestimonials} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-25" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+    </div>
     <div className="container">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-2xl"
       >
         <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Members</span>
@@ -42,10 +47,10 @@ const Testimonials = () => (
         {items.map((t, i) => (
           <motion.figure
             key={t.name}
-            initial={{ opacity: 0, y: 40, rotate: i % 2 ? 1 : -1 }}
-            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-            viewport={{ once: false, margin: "-50px" }}
-            transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-60px" }}
+            transition={{ delay: i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -6 }}
             className="glass rounded-2xl p-6 shadow-card"
           >
