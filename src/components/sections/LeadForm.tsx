@@ -9,7 +9,7 @@ import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle2 } from "lucide-react";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
-import bgForm from "@/assets/bg-form.jpg";
+import bgForm from "@/assets/poster-apply.jpg";
 
 const interests = [
   "Freelancing",

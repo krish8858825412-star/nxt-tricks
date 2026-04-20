@@ -4,7 +4,7 @@ import { ArrowRight, Send, Sparkles } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 
-const headline = "Build Real Income From Home";
+const headline = "NST Tricks · Official";
 
 const letterVariants = {
   hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
@@ -23,8 +23,8 @@ const Hero = () => {
     <section id="top" className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-20">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
-        <img src={heroBg} alt="" width={1920} height={1280} className="w-full h-full object-cover opacity-60" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/40 to-background" />
+        <img src={heroBg} alt="NST Tricks Official poster" width={1920} height={1280} className="w-full h-full object-cover opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
         <div className="absolute inset-0 grid-pattern opacity-50" />
       </div>
 
@@ -55,7 +55,7 @@ const Hero = () => {
         >
           <div className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs sm:text-sm text-muted-foreground">
             <Sparkles className="size-3.5 text-primary" />
-            <span>India's #1 legitimate work-from-home network</span>
+            <span>India's #1 legitimate work-from-home community</span>
           </div>
         </motion.div>
 
@@ -80,7 +80,7 @@ const Hero = () => {
             transition={{ delay: 1.0, duration: 0.7 }}
             className="block mt-2 text-gradient-aurora bg-[length:200%_200%] animate-gradient-shift"
           >
-            ₹1,000 – ₹2,000 / day potential*
+            Earn ₹1,000 – ₹2,000 / day*
           </motion.span>
         </h1>
 
@@ -90,8 +90,8 @@ const Hero = () => {
           transition={{ delay: 1.2, duration: 0.7 }}
           className="mx-auto mt-6 max-w-2xl text-center text-base sm:text-lg text-muted-foreground"
         >
-          Work just 2 – 4 hours a day from your phone. Choose your skill — freelancing, affiliate marketing, agency
-          services, or finance education — and start earning with our guided Telegram community.
+          Work just 2 – 4 hours a day from your phone. Pick your skill — freelancing, agency services,
+          or finance education — and grow with our guided Telegram community.
         </motion.p>
 
         <motion.div

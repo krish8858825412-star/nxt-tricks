@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
-import bgTestimonials from "@/assets/bg-testimonials.jpg";
+import bgTestimonials from "@/assets/poster-testimonials.jpg";
 
 const items = [
   {
