@@ -15,7 +15,7 @@ const StatsTicker = () => (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.6 }}
         className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6"
       >
@@ -24,7 +24,7 @@ const StatsTicker = () => (
             key={s.l}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ delay: i * 0.07, duration: 0.5 }}
             className="text-center"
           >

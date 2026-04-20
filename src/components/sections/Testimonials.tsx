@@ -25,7 +25,7 @@ const Testimonials = () => (
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.7 }}
         className="max-w-2xl"
       >
@@ -44,7 +44,7 @@ const Testimonials = () => (
             key={t.name}
             initial={{ opacity: 0, y: 40, rotate: i % 2 ? 1 : -1 }}
             whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: false, margin: "-50px" }}
             transition={{ delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -6 }}
             className="glass rounded-2xl p-6 shadow-card"

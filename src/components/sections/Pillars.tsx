@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, Link2, Megaphone, LineChart } from "lucide-react";
+import { Briefcase, Megaphone, LineChart } from "lucide-react";
 
 const pillars = [
   {
@@ -9,14 +9,6 @@ const pillars = [
     desc: "Learn writing, design, video editing, and data entry. Get real client leads from our partner network.",
     bullets: ["Beginner-friendly modules", "Live mentorship calls", "Portfolio reviews"],
     accent: "from-primary to-primary-glow",
-  },
-  {
-    icon: Link2,
-    title: "Affiliate Marketing",
-    tag: "Recurring Income",
-    desc: "Promote real products from Amazon, Meesho, and CashKaro. Earn commissions on every verified sale.",
-    bullets: ["100% legal programs", "Daily campaign drops", "Tracking dashboards"],
-    accent: "from-accent to-accent-glow",
   },
   {
     icon: Megaphone,
@@ -37,10 +29,11 @@ const pillars = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, x: -60 },
+  hidden: { opacity: 0, y: 50, scale: 0.95 },
   show: (i: number) => ({
     opacity: 1,
-    x: 0,
+    y: 0,
+    scale: 1,
     transition: { delay: i * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
   }),
 };
@@ -51,7 +44,7 @@ const Pillars = () => (
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.7 }}
         className="max-w-2xl"
       >
@@ -64,7 +57,7 @@ const Pillars = () => (
         </p>
       </motion.div>
 
-      <div className="mt-16 grid gap-6 md:grid-cols-2">
+      <div className="mt-16 grid gap-6 md:grid-cols-3">
         {pillars.map((p, i) => (
           <motion.article
             key={p.title}
@@ -72,7 +65,8 @@ const Pillars = () => (
             variants={cardVariants}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-50px" }}
+            exit="hidden"
+            viewport={{ once: false, margin: "-80px" }}
             whileHover={{ y: -6 }}
             className="group relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-card p-7 shadow-card transition-all hover:shadow-elegant hover:border-primary/40"
           >
