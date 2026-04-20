@@ -6,6 +6,66 @@
 
 @layer base {
   :root {
+    /* Light palette — clean, airy, brand-tinted */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 188 92% 38%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 188 95% 55%;
+
+    --accent: 28 95% 50%;
+    --accent-foreground: 0 0% 100%;
+    --accent-glow: 32 100% 62%;
+
+    --secondary: 210 30% 94%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 30% 94%;
+    --muted-foreground: 215 16% 40%;
+
+    --destructive: 0 78% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 25% 88%;
+    --input: 215 25% 88%;
+    --ring: 188 92% 38%;
+
+    --radius: 1rem;
+
+    --gradient-hero: radial-gradient(ellipse at top, hsl(188 92% 60% / 0.18), transparent 60%),
+                     radial-gradient(ellipse at bottom right, hsl(28 95% 60% / 0.18), transparent 55%),
+                     linear-gradient(180deg, hsl(210 40% 98%), hsl(210 40% 96%));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-aurora: linear-gradient(135deg, hsl(188 92% 45%), hsl(220 85% 55%) 40%, hsl(28 95% 55%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(210 30% 98% / 0.7));
+
+    --shadow-glow: 0 0 60px hsl(188 92% 50% / 0.25);
+    --shadow-glow-amber: 0 0 60px hsl(28 95% 55% / 0.25);
+    --shadow-elegant: 0 20px 60px -20px hsl(222 30% 30% / 0.18);
+    --shadow-card: 0 10px 40px -15px hsl(222 30% 30% / 0.12);
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 188 92% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 30% 94%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 215 25% 88%;
+    --sidebar-ring: 188 92% 38%;
+  }
+
+  .dark {
     /* Cinematic dark palette */
     --background: 222 47% 5%;
     --foreground: 210 40% 98%;
@@ -16,12 +76,10 @@
     --popover: 222 47% 7%;
     --popover-foreground: 210 40% 98%;
 
-    /* Electric cyan as primary brand */
     --primary: 188 95% 55%;
     --primary-foreground: 222 47% 5%;
     --primary-glow: 188 100% 70%;
 
-    /* Warm amber accent */
     --accent: 32 100% 60%;
     --accent-foreground: 222 47% 5%;
     --accent-glow: 32 100% 72%;
@@ -39,26 +97,16 @@
     --input: 222 35% 14%;
     --ring: 188 95% 55%;
 
-    --radius: 1rem;
-
-    /* Gradients */
     --gradient-hero: radial-gradient(ellipse at top, hsl(188 95% 55% / 0.18), transparent 60%),
                      radial-gradient(ellipse at bottom right, hsl(32 100% 60% / 0.15), transparent 55%),
                      linear-gradient(180deg, hsl(222 47% 5%), hsl(222 50% 3%));
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
     --gradient-aurora: linear-gradient(135deg, hsl(188 95% 55%), hsl(220 90% 60%) 40%, hsl(32 100% 60%));
     --gradient-card: linear-gradient(135deg, hsl(222 47% 9% / 0.8), hsl(222 47% 6% / 0.6));
 
-    /* Shadows */
     --shadow-glow: 0 0 60px hsl(188 95% 55% / 0.35);
     --shadow-glow-amber: 0 0 60px hsl(32 100% 60% / 0.35);
     --shadow-elegant: 0 20px 60px -20px hsl(222 80% 2% / 0.6);
     --shadow-card: 0 10px 40px -15px hsl(222 80% 2% / 0.5);
-
-    /* Motion */
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 222 47% 5%;
     --sidebar-foreground: 210 40% 98%;
@@ -113,10 +161,10 @@
   }
 
   .glass {
-    background: hsl(222 47% 8% / 0.5);
+    background: hsl(var(--card) / 0.6);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid hsl(210 40% 98% / 0.06);
+    border: 1px solid hsl(var(--foreground) / 0.08);
   }
 
   .glow-primary {
