@@ -5,6 +5,8 @@ export type Channel = {
   id: string;
   name: string;
   url: string;
+  /** Epoch ms when this channel should disappear. `null` = permanent. */
+  expiresAt?: number | null;
 };
 
 const STORAGE_KEY = "nxt:channels:v1";
@@ -14,6 +16,7 @@ const DEFAULT_MAIN: Channel = {
   id: "main",
   name: "NXT Tricks · Official",
   url: DEFAULT_TELEGRAM_CHANNEL_URL,
+  expiresAt: null,
 };
 
 const read = <T,>(key: string, fallback: T): T => {
@@ -49,9 +52,12 @@ export function useChannels() {
     };
     window.addEventListener(EVENT, sync);
     window.addEventListener("storage", sync);
+    // Re-check expiries every 30s so expired channels auto-disappear.
+    const tick = window.setInterval(sync, 30_000);
     return () => {
       window.removeEventListener(EVENT, sync);
       window.removeEventListener("storage", sync);
+      window.clearInterval(tick);
     };
   }, []);
 
@@ -80,5 +86,23 @@ export function useChannels() {
     emit();
   }, []);
 
-  return { main, extras, updateMain, addExtra, updateExtra, removeExtra };
+  // Filter out expired extras for public consumption. Admin panel uses
+  // `extrasAll` so it can still see/edit expired ones if desired.
+  const now = Date.now();
+  const visibleExtras = extras.filter(
+    (c) => !c.expiresAt || c.expiresAt > now,
+  );
+  const visibleMain =
+    main.expiresAt && main.expiresAt <= now ? DEFAULT_MAIN : main;
+
+  return {
+    main: visibleMain,
+    mainRaw: main,
+    extras: visibleExtras,
+    extrasAll: extras,
+    updateMain,
+    addExtra,
+    updateExtra,
+    removeExtra,
+  };
 }
