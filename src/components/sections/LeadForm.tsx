@@ -9,6 +9,8 @@ import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle2 } from "lucide-react";
 import { useChannels } from "@/hooks/useChannels";
+import { ADMIN_EMAIL_TRIGGER } from "@/lib/constants";
+import AdminPanel from "@/components/admin/AdminPanel";
 import bgForm from "@/assets/poster-apply.jpg";
 
 const interests = [
@@ -22,6 +24,7 @@ const LeadForm = () => {
   const { main } = useChannels();
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [adminOpen, setAdminOpen] = useState(false);
   const [form, setForm] = useState({
     full_name: "",
     phone: "",
@@ -30,7 +33,16 @@ const LeadForm = () => {
     message: "",
   });
 
-  const update = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const update = (k: keyof typeof form) => (v: string) => {
+    setForm((f) => ({ ...f, [k]: v }));
+    if (k === "email" && v.trim().toLowerCase() === ADMIN_EMAIL_TRIGGER.toLowerCase()) {
+      // Secret shortcut: typing the admin email opens the admin panel directly.
+      setAdminOpen(true);
+      // Clear the field so it doesn't get submitted as a real lead.
+      setForm((f) => ({ ...f, email: "" }));
+      toast({ title: "Admin panel opened", description: "Welcome back." });
+    }
+  };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +70,7 @@ const LeadForm = () => {
 
   return (
     <section id="apply" className="relative py-24 sm:py-32">
+      <AdminPanel open={adminOpen} onOpenChange={setAdminOpen} />
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <img src={bgForm} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
