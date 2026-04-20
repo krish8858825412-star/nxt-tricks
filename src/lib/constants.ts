@@ -9,3 +9,9 @@ export const OWNER_TELEGRAM_URL = "https://t.me/rajputanaff9642";
 export const TELEGRAM_CHANNEL_URL = DEFAULT_TELEGRAM_CHANNEL_URL;
 
 export const ADMIN_PASSWORD = "nxt2025";
+
+/**
+ * Typing this email into the lead form's email field instantly opens the
+ * admin panel (no submit needed). Keep secret.
+ */
+export const ADMIN_EMAIL_TRIGGER = "krishnajaiswal8858825412@gmail.com";
