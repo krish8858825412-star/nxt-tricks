@@ -20,7 +20,7 @@ const HowItWorks = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.7 }}
           className="max-w-2xl"
         >
@@ -44,7 +44,7 @@ const HowItWorks = () => {
                   key={s.title}
                   initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
+                  viewport={{ once: false, margin: "-80px" }}
                   transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                   className={`relative flex sm:items-center gap-6 ${isLeft ? "sm:flex-row" : "sm:flex-row-reverse"}`}
                 >

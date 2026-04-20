@@ -62,7 +62,7 @@ const LeadForm = () => {
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.7 }}
           >
             <span className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Apply Now</span>
@@ -91,7 +91,7 @@ const LeadForm = () => {
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.7 }}
             className="glass rounded-3xl p-6 sm:p-8 shadow-elegant"
           >
