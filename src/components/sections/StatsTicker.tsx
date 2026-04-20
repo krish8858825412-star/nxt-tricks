@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const stats = [
   { v: "12,400+", l: "Members in community" },
-  { v: "4", l: "Income pillars" },
+  { v: "3", l: "Income pillars" },
   { v: "2–4 hrs", l: "Daily commitment" },
   { v: "₹0", l: "Joining fee — free" },
   { v: "100%", l: "Mobile friendly" },

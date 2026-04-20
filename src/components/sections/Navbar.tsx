@@ -19,8 +19,8 @@ const Navbar = () => (
     <div className="container">
       <div className="mt-4 glass rounded-full px-4 sm:px-6 py-3 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2 group">
-          <span className="size-8 rounded-lg bg-gradient-aurora animate-gradient-shift bg-[length:200%_200%] grid place-items-center font-display font-bold text-primary-foreground">W</span>
-          <span className="font-display font-bold tracking-tight text-base sm:text-lg">WorkHub<span className="text-primary">.</span>India</span>
+          <span className="size-8 rounded-lg bg-gradient-aurora animate-gradient-shift bg-[length:200%_200%] grid place-items-center font-display font-bold text-primary-foreground text-sm">N</span>
+          <span className="font-display font-bold tracking-tight text-base sm:text-lg">NST Tricks<span className="text-primary"> · </span><span className="text-muted-foreground font-normal text-xs sm:text-sm">Official</span></span>
         </a>
         <nav className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
           {links.map((l) => (
