@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle2 } from "lucide-react";
-import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import { useChannels } from "@/hooks/useChannels";
 import bgForm from "@/assets/poster-apply.jpg";
 
 const interests = [
@@ -19,6 +19,7 @@ const interests = [
 ];
 
 const LeadForm = () => {
+  const { main } = useChannels();
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [form, setForm] = useState({
@@ -109,7 +110,7 @@ const LeadForm = () => {
                   We received your details. Join the Telegram channel now to receive your roadmap.
                 </p>
                 <Button asChild size="lg" variant="hero" className="mt-6">
-                  <a href={TELEGRAM_CHANNEL_URL} target="_blank" rel="noopener noreferrer">
+                  <a href={main.url} target="_blank" rel="noopener noreferrer">
                     <Send className="size-4" /> Join Telegram
                   </a>
                 </Button>

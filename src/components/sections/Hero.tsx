@@ -2,9 +2,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Send, Sparkles } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
-import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import { useChannels } from "@/hooks/useChannels";
 
-const headline = "NST Tricks · Official";
+const headline = "NXT Tricks · Official";
 
 const letterVariants = {
   hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
@@ -18,6 +18,7 @@ const letterVariants = {
 
 const Hero = () => {
   const reduce = useReducedMotion();
+  const { main, extras } = useChannels();
 
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden pt-28 sm:pt-32 pb-20">
@@ -101,7 +102,7 @@ const Hero = () => {
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button asChild size="xl" variant="hero" className="group">
-            <a href={TELEGRAM_CHANNEL_URL} target="_blank" rel="noopener noreferrer">
+            <a href={main.url} target="_blank" rel="noopener noreferrer">
               <Send className="size-5" />
               Join Telegram Channel
               <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
@@ -111,6 +112,24 @@ const Hero = () => {
             <a href="#pillars">See What's Inside</a>
           </Button>
         </motion.div>
+
+        {extras.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-2"
+          >
+            <span className="text-xs text-muted-foreground">More channels:</span>
+            {extras.map((c) => (
+              <Button key={c.id} asChild size="sm" variant="ghostBorder" className="rounded-full">
+                <a href={c.url} target="_blank" rel="noopener noreferrer">
+                  <Send className="size-3.5" /> {c.name}
+                </a>
+              </Button>
+            ))}
+          </motion.div>
+        )}
 
         <motion.p
           initial={{ opacity: 0 }}
