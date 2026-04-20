@@ -58,8 +58,8 @@ const LeadForm = () => {
   return (
     <section id="apply" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <img src={bgForm} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        <img src={bgForm} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
       </div>
       <div className="container">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
