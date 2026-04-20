@@ -41,8 +41,8 @@ const cardVariants = {
 const Pillars = () => (
   <section id="pillars" className="relative py-24 sm:py-32">
     <div className="absolute inset-0 -z-10 overflow-hidden">
-      <img src={bgPillars} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-30" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+      <img src={bgPillars} alt="" loading="lazy" width={1920} height={1024} className="w-full h-full object-cover opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/55 to-background" />
     </div>
     <div className="container">
       <motion.div
