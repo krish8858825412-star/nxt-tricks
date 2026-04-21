@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Send, Sparkles } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { useChannels } from "@/hooks/useChannels";
+import { EditableText } from "@/components/EditableText";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
-const headline = "NXT Tricks · Official";
+const HEADLINE_DEFAULT = "NXT Tricks · Official";
 
 const letterVariants = {
   hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
@@ -19,6 +21,7 @@ const letterVariants = {
 const Hero = () => {
   const reduce = useReducedMotion();
   const { main, extras } = useChannels();
+  const { value: headline } = useSiteContent("hero.headline", HEADLINE_DEFAULT);
   const posterIntro = reduce
     ? {
         hidden: { opacity: 1, x: 0, y: 0, scale: 1, rotate: 0, filter: "blur(0px)" },
