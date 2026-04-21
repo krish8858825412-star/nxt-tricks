@@ -124,18 +124,27 @@ const Hero = () => {
 
         <h1 className="mt-6 mx-auto max-w-4xl text-center font-display font-bold tracking-tight text-4xl sm:text-6xl md:text-7xl leading-[1.05]">
           <span className="block" aria-label={headline}>
-            {headline.split("").map((ch, i) => (
-              <motion.span
-                key={i}
-                custom={i}
-                variants={letterVariants}
-                initial="hidden"
-                animate="show"
-                className="inline-block"
-              >
-                {ch === " " ? "\u00A0" : ch}
-              </motion.span>
-            ))}
+            <EditableText
+              contentKey="hero.headline"
+              defaultValue={HEADLINE_DEFAULT}
+              as="span"
+              className="inline-block"
+            />
+            <span className="sr-only">{headline}</span>
+            <span aria-hidden className="hidden">
+              {headline.split("").map((ch, i) => (
+                <motion.span
+                  key={i}
+                  custom={i}
+                  variants={letterVariants}
+                  initial="hidden"
+                  animate="show"
+                  className="inline-block"
+                >
+                  {ch === " " ? "\u00A0" : ch}
+                </motion.span>
+              ))}
+            </span>
           </span>
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -143,7 +152,11 @@ const Hero = () => {
             transition={{ delay: 1.0, duration: 0.7 }}
             className="block mt-2 text-gradient-aurora bg-[length:200%_200%] animate-gradient-shift"
           >
-            Earn ₹1,000 – ₹2,000 / day*
+            <EditableText
+              contentKey="hero.earnings"
+              defaultValue="Earn ₹1,000 – ₹2,000 / day*"
+              as="span"
+            />
           </motion.span>
         </h1>
 
@@ -153,8 +166,12 @@ const Hero = () => {
           transition={{ delay: 1.2, duration: 0.7 }}
           className="mx-auto mt-6 max-w-2xl text-center text-base sm:text-lg text-muted-foreground"
         >
-          Work just 2 – 4 hours a day from your phone. Pick your skill — freelancing, agency services,
-          or finance education — and grow with our guided Telegram community.
+          <EditableText
+            contentKey="hero.subheadline"
+            defaultValue="Work just 2 – 4 hours a day from your phone. Pick your skill — freelancing, agency services, or finance education — and grow with our guided Telegram community."
+            as="span"
+            multiline
+          />
         </motion.p>
 
         <motion.div
