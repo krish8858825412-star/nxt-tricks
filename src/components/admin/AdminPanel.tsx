@@ -384,17 +384,34 @@ export default function AdminPanel({ open, onOpenChange }: Props) {
         )}
 
         {authed && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              sessionStorage.removeItem(SESSION_KEY);
-              setAuthed(false);
-            }}
-            className="w-full mt-2"
-          >
-            Lock admin panel
-          </Button>
+          <div className="mt-3 space-y-2">
+            <div className="flex items-center justify-between gap-2 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-xs">
+              <span className="flex items-center gap-2">
+                <Pencil className="size-3.5 text-primary" />
+                Inline edit mode {adminMode ? "is ON" : "is OFF"} — double-click any text on the site to edit.
+              </span>
+              <Button
+                size="sm"
+                variant={adminMode ? "secondary" : "hero"}
+                className="h-7"
+                onClick={() => (adminMode ? disableAdminMode() : enableAdminMode())}
+              >
+                {adminMode ? "Turn off" : "Turn on"}
+              </Button>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                sessionStorage.removeItem(SESSION_KEY);
+                disableAdminMode();
+                setAuthed(false);
+              }}
+              className="w-full"
+            >
+              Lock admin panel
+            </Button>
+          </div>
         )}
       </DialogContent>
     </Dialog>
