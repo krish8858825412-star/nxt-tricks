@@ -9,8 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useChannels } from "@/hooks/useChannels";
 import { useTestimonials } from "@/hooks/useTestimonials";
 import { ADMIN_PASSWORD } from "@/lib/constants";
-import { Lock, Plus, Save, Trash2, ShieldCheck, Clock, Infinity as InfinityIcon, RotateCcw } from "lucide-react";
+import { Lock, Plus, Save, Trash2, ShieldCheck, Clock, Infinity as InfinityIcon, RotateCcw, BarChart3, Pencil } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { useAdminMode, setAdminPassword } from "@/hooks/useAdminMode";
+import AdminAnalytics from "./AdminAnalytics";
 
 type Props = {
   open: boolean;
@@ -50,6 +52,7 @@ const formatExpiry = (ts?: number | null) => {
 export default function AdminPanel({ open, onOpenChange }: Props) {
   const { mainRaw, extrasAll, updateMain, addExtra, updateExtra, removeExtra } = useChannels();
   const { all: testimonials, add: addTesti, update: updateTesti, remove: removeTesti, reset: resetTesti } = useTestimonials();
+  const { enabled: adminMode, enable: enableAdminMode, disable: disableAdminMode } = useAdminMode();
 
   const [authed, setAuthed] = useState(false);
   const [pwd, setPwd] = useState("");
@@ -82,6 +85,8 @@ export default function AdminPanel({ open, onOpenChange }: Props) {
     e.preventDefault();
     if (pwd === ADMIN_PASSWORD) {
       sessionStorage.setItem(SESSION_KEY, "1");
+      setAdminPassword(pwd);
+      enableAdminMode();
       setAuthed(true);
       toast({ title: "Welcome, admin", description: "Manage channels and testimonials." });
     } else {
@@ -153,7 +158,7 @@ export default function AdminPanel({ open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[88vh] overflow-y-auto">
+      <DialogContent data-no-ripple className="max-w-2xl max-h-[88vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <ShieldCheck className="size-5 text-primary" /> Admin Panel
@@ -183,11 +188,16 @@ export default function AdminPanel({ open, onOpenChange }: Props) {
             </Button>
           </form>
         ) : (
-          <Tabs defaultValue="channels" className="pt-2">
-            <TabsList className="grid w-full grid-cols-2">
+          <Tabs defaultValue="analytics" className="pt-2">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="analytics"><BarChart3 className="mr-1 size-3.5" />Analytics</TabsTrigger>
               <TabsTrigger value="channels">Channels</TabsTrigger>
               <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
             </TabsList>
+
+            <TabsContent value="analytics">
+              <AdminAnalytics />
+            </TabsContent>
 
             {/* CHANNELS TAB */}
             <TabsContent value="channels" className="space-y-6 pt-4">
