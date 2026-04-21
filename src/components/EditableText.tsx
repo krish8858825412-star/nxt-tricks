@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { useAdminMode } from "@/hooks/useAdminMode";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { Pencil } from "lucide-react";
@@ -28,7 +27,6 @@ export function EditableText({
   maxLength = 1000,
 }: Props) {
   const { value, save } = useSiteContent(contentKey, defaultValue);
-  const { enabled: adminMode } = useAdminMode();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(value);
   const [saving, setSaving] = useState(false);
@@ -63,27 +61,9 @@ export function EditableText({
     }
   };
 
-  if (!adminMode) {
-    const Wrapper = Tag as keyof JSX.IntrinsicElements;
-    // Render with whitespace preserved for multiline
-    return (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      <Wrapper className={className as any}>
-        {multiline
-          ? value.split("\n").map((ln, i) => (
-              <span key={i}>
-                {ln}
-                {i < value.split("\n").length - 1 ? <br /> : null}
-              </span>
-            ))
-          : value}
-      </Wrapper>
-    );
-  }
-
   if (editing) {
     return (
-      <span className={cn("inline-block w-full align-top", className)}>
+      <span data-no-ripple className={cn("inline-block w-full align-top", className)}>
         <textarea
           ref={ref}
           value={draft}
@@ -120,7 +100,7 @@ export function EditableText({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Wrapper
       className={cn(
-        "relative cursor-text rounded-sm outline-dashed outline-1 outline-offset-2 outline-primary/40 hover:outline-primary",
+        "relative cursor-text rounded-sm",
         className,
       ) as any}
       onDoubleClick={(e: React.MouseEvent) => {
@@ -128,7 +108,7 @@ export function EditableText({
         e.stopPropagation();
         setEditing(true);
       }}
-      title="Double-click to edit"
+      title="Double-tap to edit"
     >
       {multiline
         ? value.split("\n").map((ln, i) => (
@@ -138,7 +118,6 @@ export function EditableText({
             </span>
           ))
         : value}
-      <Pencil className="ml-1 inline-block size-3 align-middle text-primary/70" />
     </Wrapper>
   );
 }
