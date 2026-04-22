@@ -55,22 +55,22 @@ export default function LiquidRipple() {
       strength: number; // 0..1 displacement strength
     };
     const ripples: Ripple[] = [];
-    const MAX_RIPPLES = 14;
+    const MAX_RIPPLES = 18;
 
     let lastSpawn = 0;
     const spawn = (x: number, y: number, intensity = 1) => {
       const now = performance.now();
-      if (now - lastSpawn < 26) return;
+      if (now - lastSpawn < 22) return;
       lastSpawn = now;
       if (ripples.length >= MAX_RIPPLES) ripples.shift();
       ripples.push({
         x,
         y,
-        r: 6,
-        max: (110 + Math.random() * 110) * intensity,
-        alpha: 0.55,
+        r: 10,
+        max: (180 + Math.random() * 160) * intensity,
+        alpha: 0.85,
         hue: 195 + Math.random() * 50,
-        strength: 0.85 * intensity,
+        strength: 1.0 * intensity,
       });
     };
 
@@ -99,10 +99,10 @@ export default function LiquidRipple() {
 
       for (let i = ripples.length - 1; i >= 0; i--) {
         const r = ripples[i];
-        r.r += (r.max - r.r) * 0.07;
-        r.alpha *= 0.955;
-        r.strength *= 0.962;
-        if (r.alpha < 0.012 || r.r >= r.max - 0.5) {
+        r.r += (r.max - r.r) * 0.06;
+        r.alpha *= 0.965;
+        r.strength *= 0.972;
+        if (r.alpha < 0.01 || r.r >= r.max - 0.5) {
           ripples.splice(i, 1);
           continue;
         }
@@ -116,10 +116,11 @@ export default function LiquidRipple() {
         // back to neutral at edge — that creates an outward "push" wave.
         const dispGrad = dispCtx.createRadialGradient(dx, dy, dr * 0.05, dx, dy, dr);
           const s = Math.min(1, r.strength);
-          const hi = Math.round(128 + 110 * s); // up to ~238
-          const lo = Math.round(128 - 110 * s); // down to ~18
+          const hi = Math.round(128 + 127 * s); // up to 255 (max push)
+          const lo = Math.round(128 - 127 * s); // down to 1   (max pull)
         dispGrad.addColorStop(0, `rgba(${hi},${hi},${hi},1)`);
-        dispGrad.addColorStop(0.55, `rgba(${lo},${lo},${lo},1)`);
+        dispGrad.addColorStop(0.5, `rgba(${lo},${lo},${lo},1)`);
+        dispGrad.addColorStop(0.85, `rgba(${hi},${hi},${hi},0.6)`);
         dispGrad.addColorStop(1, `rgba(128,128,128,0)`);
         dispCtx.fillStyle = dispGrad;
         dispCtx.beginPath();
@@ -130,10 +131,11 @@ export default function LiquidRipple() {
         const gx = r.x * dpr;
         const gy = r.y * dpr;
         const gr = r.r * dpr;
-        const glowGrad = glowCtx.createRadialGradient(gx, gy, gr * 0.15, gx, gy, gr);
-        glowGrad.addColorStop(0, `hsla(${r.hue}, 95%, 70%, ${r.alpha * 0.55})`);
-        glowGrad.addColorStop(0.55, `hsla(${r.hue + 25}, 95%, 60%, ${r.alpha * 0.22})`);
-        glowGrad.addColorStop(1, `hsla(${r.hue + 50}, 95%, 55%, 0)`);
+        const glowGrad = glowCtx.createRadialGradient(gx, gy, gr * 0.05, gx, gy, gr);
+        glowGrad.addColorStop(0, `hsla(${r.hue}, 100%, 78%, ${r.alpha * 0.85})`);
+        glowGrad.addColorStop(0.35, `hsla(${r.hue + 15}, 100%, 68%, ${r.alpha * 0.55})`);
+        glowGrad.addColorStop(0.7, `hsla(${r.hue + 30}, 100%, 60%, ${r.alpha * 0.25})`);
+        glowGrad.addColorStop(1, `hsla(${r.hue + 50}, 100%, 55%, 0)`);
         glowCtx.fillStyle = glowGrad;
         glowCtx.beginPath();
         glowCtx.arc(gx, gy, gr, 0, Math.PI * 2);
@@ -145,14 +147,12 @@ export default function LiquidRipple() {
       const filterImage = document.getElementById("liquid-disp-img") as unknown as SVGImageElement | null;
       if (filterImage) {
         if (ripples.length > 0) {
-          // Use direct canvas href (works on modern browsers via toDataURL)
-          // Throttle: only re-encode every ~2 frames to save CPU
-          if ((t | 0) % 2 === 0) {
-            try {
-              filterImage.setAttribute("href", dispCanvas.toDataURL());
-            } catch {
-              /* ignore */
-            }
+          // Re-encode the displacement map every frame so the warp
+          // visibly follows the pointer/touch in real time.
+          try {
+            filterImage.setAttribute("href", dispCanvas.toDataURL());
+          } catch {
+            /* ignore */
           }
           document.body.style.filter = "url(#liquid-displace)";
         } else {
@@ -173,12 +173,12 @@ export default function LiquidRipple() {
 
     const onPointer = (e: PointerEvent) => {
       if (isInsideNoRipple(e.target)) return;
-      spawn(e.clientX, e.clientY, e.pointerType === "touch" ? 1.2 : 0.95);
+      spawn(e.clientX, e.clientY, e.pointerType === "touch" ? 1.5 : 1.15);
     };
     const onTouch = (e: TouchEvent) => {
       if (isInsideNoRipple(e.target)) return;
       const t = e.touches[0] ?? e.changedTouches[0];
-      if (t) spawn(t.clientX, t.clientY, 1.25);
+      if (t) spawn(t.clientX, t.clientY, 1.6);
     };
     let lastScrollY = window.scrollY;
     const onScroll = () => {
@@ -223,7 +223,7 @@ export default function LiquidRipple() {
             <feDisplacementMap
               in="SourceGraphic"
               in2="dispMap"
-              scale="22"
+              scale="48"
               xChannelSelector="R"
               yChannelSelector="G"
             />
