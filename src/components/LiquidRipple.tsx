@@ -218,12 +218,15 @@ export default function LiquidRipple() {
         style={{ position: "fixed", width: 0, height: 0, pointerEvents: "none" }}
       >
         <defs>
-          <filter id="liquid-displace" x="0%" y="0%" width="100%" height="100%">
+          {/* Filter region is expanded beyond the body so the displacement
+              never clips contents at the viewport edges. Without this the
+              page can look "cut off" or shifted on small screens. */}
+          <filter id="liquid-displace" x="-15%" y="-15%" width="130%" height="130%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
             <feImage id="liquid-disp-img" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="dispMap" />
             <feDisplacementMap
               in="SourceGraphic"
               in2="dispMap"
-              scale="48"
+              scale="32"
               xChannelSelector="R"
               yChannelSelector="G"
             />
