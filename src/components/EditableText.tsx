@@ -3,6 +3,8 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { Pencil } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useAdminMode } from "@/hooks/useAdminMode";
 
 type Props = {
   contentKey: string;
@@ -27,6 +29,7 @@ export function EditableText({
   maxLength = 1000,
 }: Props) {
   const { value, save } = useSiteContent(contentKey, defaultValue);
+  const { enabled: adminMode } = useAdminMode();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(value);
   const [saving, setSaving] = useState(false);
@@ -61,6 +64,13 @@ export function EditableText({
     }
   };
 
+  const startEditing = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (!adminMode || editing) return;
+    e?.preventDefault();
+    e?.stopPropagation();
+    setEditing(true);
+  };
+
   if (editing) {
     return (
       <span data-no-ripple className={cn("inline-block w-full align-top", className)}>
@@ -69,7 +79,6 @@ export function EditableText({
           value={draft}
           maxLength={maxLength}
           onChange={(e) => setDraft(e.target.value)}
-          onBlur={onCommit}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
               setEditing(false);
@@ -88,9 +97,14 @@ export function EditableText({
           )}
           aria-label={`Edit ${contentKey}`}
         />
-        <span className="mt-1 block text-[10px] uppercase tracking-widest text-primary">
-          {saving ? "Saving…" : "Enter to save · Esc to cancel"}
-        </span>
+        <div className="mt-2 flex items-center justify-between gap-2">
+          <span className="block text-[10px] uppercase tracking-widest text-primary">
+            {saving ? "Saving…" : "Tap Done to save · Esc to cancel"}
+          </span>
+          <Button data-no-ripple type="button" size="sm" variant="hero" className="h-7 px-3" onClick={onCommit} disabled={saving}>
+            Done
+          </Button>
+        </div>
       </span>
     );
   }
@@ -100,15 +114,12 @@ export function EditableText({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Wrapper
       className={cn(
-        "relative cursor-text rounded-sm",
+        "group relative rounded-sm",
+        adminMode && "cursor-text",
         className,
       ) as any}
-      onDoubleClick={(e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setEditing(true);
-      }}
-      title="Double-tap to edit"
+      onClick={startEditing}
+      title={adminMode ? "Tap to edit" : undefined}
     >
       {multiline
         ? value.split("\n").map((ln, i) => (
@@ -118,6 +129,14 @@ export function EditableText({
             </span>
           ))
         : value}
+      {adminMode && (
+        <span
+          data-no-ripple
+          className="pointer-events-none absolute -right-2 -top-2 inline-flex items-center gap-1 rounded-full border border-primary/40 bg-background/90 px-2 py-1 text-[10px] uppercase tracking-widest text-primary opacity-0 shadow-card transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
+        >
+          <Pencil className="size-3" /> Edit
+        </span>
+      )}
     </Wrapper>
   );
 }

@@ -9,10 +9,7 @@ import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, CheckCircle2 } from "lucide-react";
 import { useChannels } from "@/hooks/useChannels";
-import { ADMIN_EMAIL_TRIGGER } from "@/lib/constants";
 import AdminPanel from "@/components/admin/AdminPanel";
-import { useAdminMode, setAdminPassword } from "@/hooks/useAdminMode";
-import { ADMIN_PASSWORD } from "@/lib/constants";
 import bgForm from "@/assets/poster-apply.jpg";
 
 const interests = [
@@ -24,7 +21,6 @@ const interests = [
 
 const LeadForm = () => {
   const { main } = useChannels();
-  const { enable: enableAdminMode } = useAdminMode();
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
@@ -38,17 +34,6 @@ const LeadForm = () => {
 
   const update = (k: keyof typeof form) => (v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
-    if (k === "email" && v.trim().toLowerCase() === ADMIN_EMAIL_TRIGGER.toLowerCase()) {
-      // Secret shortcut: typing the admin email opens the admin panel directly.
-      // Pre-authorize so the admin doesn't need to retype the password.
-      sessionStorage.setItem("nxt:admin-auth", "1");
-      setAdminPassword(ADMIN_PASSWORD);
-      enableAdminMode();
-      setAdminOpen(true);
-      // Clear the field so it doesn't get submitted as a real lead.
-      setForm((f) => ({ ...f, email: "" }));
-      toast({ title: "Admin panel opened", description: "Welcome back." });
-    }
   };
 
   const onSubmit = async (e: React.FormEvent) => {
