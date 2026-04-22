@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Preloader from "@/components/Preloader";
 import LiquidRipple from "@/components/LiquidRipple";
+import VisitorTracker from "@/components/VisitorTracker";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -17,6 +18,7 @@ const App = () => (
       <TooltipProvider>
         <Preloader />
         <LiquidRipple />
+        <VisitorTracker />
         <Toaster />
         <Sonner />
         <BrowserRouter>
