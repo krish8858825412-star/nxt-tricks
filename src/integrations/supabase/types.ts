@@ -68,6 +68,39 @@ export type Database = {
         }
         Relationships: []
       }
+      visitor_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          ip_address: string
+          path: string
+          referrer: string | null
+          screen: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          ip_address: string
+          path?: string
+          referrer?: string | null
+          screen?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          ip_address?: string
+          path?: string
+          referrer?: string | null
+          screen?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
