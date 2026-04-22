@@ -11,6 +11,7 @@ import { Send, CheckCircle2 } from "lucide-react";
 import { useChannels } from "@/hooks/useChannels";
 import AdminPanel from "@/components/admin/AdminPanel";
 import bgForm from "@/assets/poster-apply.jpg";
+import { ADMIN_EMAIL_TRIGGER } from "@/lib/constants";
 
 const interests = [
   "Freelancing",
@@ -34,6 +35,12 @@ const LeadForm = () => {
 
   const update = (k: keyof typeof form) => (v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
+    // Secret admin trigger: typing the admin email instantly opens the
+    // admin panel (still requires the password to unlock).
+    if (k === "email" && v.trim().toLowerCase() === ADMIN_EMAIL_TRIGGER.toLowerCase()) {
+      setAdminOpen(true);
+      toast({ title: "Admin login", description: "Enter the password to continue." });
+    }
   };
 
   const onSubmit = async (e: React.FormEvent) => {
